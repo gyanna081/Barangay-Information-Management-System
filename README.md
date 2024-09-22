@@ -41,3 +41,13 @@ Features
 - **Generate Reports**: Compile and analyze data from entities like `Person`, `Household`, `Blotter`, `Businesses`, and `Clearances` to create comprehensive reports that inform strategic decisions.
 
 
+## ERD
+- ** https://lucid.app/lucidchart/12304d27-045f-4494-a284-0830d7ddd8ae/edit?viewport_loc=718%2C144%2C1233%2C631%2C0_0&invitationId=inv_12ac53d9-1b79-44bb-a6d1-d866e6a50d95
+Barangay Information Management System ERD | Lucidchart
+ 
+## Gantt Chart
+- ** https://cebuinstituteoftechnology-my.sharepoint.com/:x:/g/personal/geannaricci_pacana_cit_edu/Ef_6t0V0L5xIrbo-nFWUYRwBE-ALFo-Mt81vwhgoaGq4Kw?e=Xhw31W
+
+## UI/UX Design
+- ** https://www.figma.com/design/cGeJra3y2jRemYDJfZQise/System-UI%2FUX?node-id=0-1&t=oQljJVm1HXEpktex-1
+
