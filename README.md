@@ -1,4 +1,3 @@
-Features
 # Barangay Information Management System Features
 
 ## 1. Resident Management (Person)
