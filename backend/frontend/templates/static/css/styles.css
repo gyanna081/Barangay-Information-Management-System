@@ -1,0 +1,35 @@
+.bg-image {
+  background-image: url("../images/background.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.logo-image {
+  background-image: url("../images/logo.png");
+  background-size: contain;
+  background-position: center;
+  height: 100vh;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.993));
+}
+
+.glass-effect {
+  background: rgba(var(--bs-white-rgb), 0.2) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.form-control.glass-input {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  color: #000000;
+}
+
+.form-control.glass-input::placeholder {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.form-control.glass-input:focus {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+}

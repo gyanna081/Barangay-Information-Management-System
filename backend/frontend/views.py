@@ -6,3 +6,7 @@ def index(request):
 
 def header(request):
     return render(request, 'frontend/components/header.html')
+
+def login(request):
+    return render(request, 'frontend/pages/login.html')
+
