@@ -15,23 +15,23 @@
   </head>
   <body>
     <div class="container-fluid bg-image">
-      <div class="row vh-100">
-        <div class="col-md-6 p-0">
-          <div class="logo-image"></div>
+      <div class="row min-vh-100">
+        <div class="col-md-6 p-0 d-none d-md-block">
+          <div class="logo-image h-100"></div>
         </div>
-        <div class="col d-flex align-items-center">
+        <div class="col-md-6 d-flex align-items-center py-5 py-md-0">
           <div class="w-100">
             <div class="row">
-              <div class="col-xxl col-xl-8 mx-auto">
+              <div class="col-xl-10 col-xxl-8 mx-auto">
                 <div class="card glass-effect border-0 shadow-lg">
-                  <div class="card-body p-5">
+                  <div class="card-body p-4 p-sm-5">
                     <h2 class="card-title text-center mb-4">
                       Barangay Management System
                     </h2>
                     <form method="post" action="{% url 'frontend:register' %}">
                       {% csrf_token %}
-                      <div class="row mb-3">
-                        <div class="col-md-4">
+                      <div class="row g-3 mb-3">
+                        <div class="col-sm-4">
                           <label for="firstname" class="form-label"
                             >Firstname</label
                           >
@@ -44,7 +44,7 @@
                             placeholder="Enter your firstname"
                           />
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                           <label for="middlename" class="form-label"
                             >Middle Name</label
                           >
@@ -56,7 +56,7 @@
                             placeholder="Enter your middle name"
                           />
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                           <label for="lastname" class="form-label"
                             >Lastname</label
                           >
@@ -110,8 +110,8 @@
                         />
                       </div>
 
-                      <div class="row mb-3">
-                        <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
                           <label for="password" class="form-label">
                             Password
                           </label>
@@ -124,7 +124,7 @@
                             placeholder="Enter your password"
                           />
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                           <label for="confirm_password" class="form-label">
                             Confirm Password
                           </label>
