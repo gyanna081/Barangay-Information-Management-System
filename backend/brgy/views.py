@@ -10,24 +10,12 @@ from django.contrib.auth import authenticate
 from rest_framework.permissions import AllowAny
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
-from django.contrib.auth.hashers import make_password
 
 
 # ViewSet for CustomUser
 class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
-
-    def perform_create(self, serializer):
-        # Hash the password before saving the user
-        password = serializer.validated_data.get('password')
-        serializer.validated_data['password'] = make_password(password)
-        
-        # Save the user
-        user = serializer.save()
-        
-        # Create a token for the new user
-        Token.objects.create(user=user)
 
 # ViewSet for Resident
 class ResidentViewSet(viewsets.ModelViewSet):
