@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'brgy'
+    'brgy',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -63,6 +63,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
+
+AUTH_USER_MODEL = 'brgy.CustomUser'
 
 ROOT_URLCONF = 'project.urls'
 
