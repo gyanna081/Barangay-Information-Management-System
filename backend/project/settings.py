@@ -72,7 +72,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend/templates')],
+        'DIRS': [BASE_DIR, 'frontend/templates/frontend'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,8 +86,9 @@ TEMPLATES = [
 ]
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/static')]
-
+STATICFILES_DIRS = [
+    BASE_DIR / "frontend" / "templates" / "static",
+]
 WSGI_APPLICATION = 'project.wsgi.application'
 
 
