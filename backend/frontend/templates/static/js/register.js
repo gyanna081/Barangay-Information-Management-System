@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
           if (response.ok) {
               alert('Registration successful!');
-              window.location.href = '/success-page'; // Redirect to a success page
+              window.location.href = '/login'; // Redirect to a success page
           } else {
               const errorData = await response.json();
               alert('Error: ' + errorData.message);
