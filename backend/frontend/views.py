@@ -10,3 +10,6 @@ def header(request):
 def login(request):
     return render(request, 'frontend/pages/login.html')
 
+def register(request):
+    return render(request, 'frontend/pages/register.html')
+
