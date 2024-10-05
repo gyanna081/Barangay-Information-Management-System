@@ -19,3 +19,7 @@ def residents(request):
 def households(request):
     return render(request, 'frontend/pages/households.html')
 
+@login_required(login_url='/login/')
+def personnel(request):
+    return render(request, 'frontend/pages/personnel.html')
+
