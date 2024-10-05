@@ -14,3 +14,8 @@ def register(request):
 @login_required(login_url='/login/')
 def residents(request):
     return render(request, 'frontend/pages/residents.html')
+
+@login_required(login_url='/login/')
+def households(request):
+    return render(request, 'frontend/pages/households.html')
+

@@ -1,0 +1,15 @@
+{% extends 'frontend/base.html' %} {% load static %} {% block title%} Households
+{% endblock %} {% block page_title %}Households{% endblock %} {% block content %}
+<div class="card">
+  <div class="card-body">
+    {% if error_message %}
+    <div class="alert alert-danger" role="alert">{{ error_message }}</div>
+    {% else %}
+    <!-- Add your residents table or list here -->
+    <p>Resident data will be displayed here.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="{% static 'js/households.js' %}"></script>
+{% endblock %}
