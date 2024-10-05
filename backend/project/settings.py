@@ -95,6 +95,8 @@ STATICFILES_DIRS = [
 ]
 WSGI_APPLICATION = 'project.wsgi.application'
 
+LOGIN_URL = '/login/'
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

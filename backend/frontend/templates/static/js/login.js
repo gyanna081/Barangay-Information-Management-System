@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("token", token);
         console.log("Login successful");
         console.log(responseData);
+        window.location.href = "/residents/";
       } else {
         const errorData = await response.json();
         alert(errorData.message || "Login failed. Please try again.");
