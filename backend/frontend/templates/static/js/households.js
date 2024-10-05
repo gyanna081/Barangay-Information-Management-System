@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const householdContainer = document.querySelector(".card-body");
+  const householdContainer = document.getElementById("householdContainer");
 
   const fetchHouseholds = async () => {
     try {
@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const table = document.createElement("table");
-    table.className = "table table-striped";
+    table.className = "table table-striped table-hover glass-effect shadow-lg";
     table.innerHTML = `
       <thead>
-        <tr>
+        <tr class="text-center">
           <th>ID</th>
           <th>Household ID</th>
           <th>Address</th>
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ${households
           .map(
             (household) => `
-          <tr>
+          <tr class="text-center">
             <td>${household.id}</td>
             <td>${household.household_number}</td>
             <td>${household.household_head}</td>
@@ -46,10 +46,10 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>
               <i class="fas fa-edit me-2 edit-household" data-household='${JSON.stringify(
                 household
-              )}'></i>
+              )}' style="color: #28a745;" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Household"></i>
               <i class="fas fa-trash delete-household" data-household-id="${
                 household.id
-              }"></i>
+              }" style="color: #dc3545;" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Household"></i>
             </td>
           </tr>
         `
@@ -67,6 +67,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll(".delete-household").forEach((icon) => {
       icon.addEventListener("click", handleDeleteClick);
+    });
+
+    const tooltipTriggerList = [].slice.call(
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
     });
   };
 

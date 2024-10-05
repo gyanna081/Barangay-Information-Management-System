@@ -16,6 +16,32 @@
 .glass-effect {
   background: rgba(var(--bs-white-rgb), 0.2) !important;
   backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table.glass-effect,
+.table.glass-effect thead,
+.table.glass-effect tbody,
+.table.glass-effect th,
+.table.glass-effect td {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border: none !important;
+}
+
+.table.glass-effect {
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.table.glass-effect tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.table.glass-effect tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .form-control.glass-input {
@@ -106,6 +132,5 @@ main {
     background-image: url("../images/background.jpg");
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
   }
 }

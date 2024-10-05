@@ -1,15 +1,27 @@
 {% extends 'frontend/base.html' %} {% load static %} {% block title%} Households
-{% endblock %} {% block page_title %}Households{% endblock %} {% block content%}
-<div class="card">
-  <button
-    type="button"
-    class="btn btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#createHouseholdModal"
-  >
-    Create Household
-  </button>
+{% endblock %} {% block page_title %}
+<div class="card glass-effect border-0 shadow-lg mb-4">
   <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <i class="fas fa-home fa-fw me-3" style="font-size: 1.2rem"></i>
+        <h6 class="fw-bold mb-0 text-sm text-gradient">Households</h6>
+      </div>
+      <button
+        type="button"
+        class="btn btn-primary btn-sm shadow-sm"
+        data-bs-toggle="modal"
+        data-bs-target="#createHouseholdModal"
+      >
+        <i class="fas fa-plus-circle fa-sm me-2"></i>Create Household
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block content %}
+
+<div class="card glass-effect border-0 shadow-lg mb-4">
+  <div class="card-body" id="householdContainer">
     {% if error_message %}
     <div class="alert alert-danger" role="alert">{{ error_message }}</div>
     {% else %}
