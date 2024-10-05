@@ -67,7 +67,7 @@
               >Household Number</label
             >
             <input
-              type="text"
+              type="number"
               class="form-control"
               id="householdNumber"
               required
@@ -139,6 +139,8 @@
 {% endblock %} {% block extra_js %}
 <script src="{% static 'js/households.js' %}"></script>
 <script>
-  document.getElementById('printRecordBtn').addEventListener('click', printHouseholdData);
+  document
+    .getElementById("printRecordBtn")
+    .addEventListener("click", printHouseholdData);
 </script>
 {% endblock %}
