@@ -1,6 +1,9 @@
 {% extends 'frontend/base.html' %} {% load static %} {% block title%} Households
 {% endblock %} {% block page_title %}Households{% endblock %} {% block content %}
 <div class="card">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createHouseholdModal">
+    Create Household
+  </button>
   <div class="card-body">
     {% if error_message %}
     <div class="alert alert-danger" role="alert">{{ error_message }}</div>
@@ -8,8 +11,41 @@
     <!-- Add your residents table or list here -->
     <p>Resident data will be displayed here.</p>
     {% endif %}
+    <!-- Create Button -->
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="createHouseholdModal" tabindex="-1" aria-labelledby="createHouseholdModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createHouseholdModalLabel">Create Household</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="createHouseholdForm">
+          <div class="mb-3">
+            <label for="householdNumber" class="form-label">Household Number</label>
+            <input type="text" class="form-control" id="householdNumber" required>
+          </div>
+          <div class="mb-3">
+            <label for="householdHead" class="form-label">Household Head</label>
+            <input type="text" class="form-control" id="householdHead" required>
+          </div>
+          <div class="mb-3">
+            <label for="numberOfMembers" class="form-label">Number of Members</label>
+            <input type="number" class="form-control" id="numberOfMembers" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %} {% block extra_js %}
 <script src="{% static 'js/households.js' %}"></script>
+<!-- <script>
+
+</script> -->
 {% endblock %}

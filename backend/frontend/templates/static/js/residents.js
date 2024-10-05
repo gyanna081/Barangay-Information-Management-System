@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const response = await fetch("/api/residents/", {
+      const response = await fetch("/brgy/residents/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
