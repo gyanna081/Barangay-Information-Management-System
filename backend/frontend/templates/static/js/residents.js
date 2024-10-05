@@ -1,48 +1,46 @@
 document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn = document.getElementById("logout-btn");
-  const residentsList = document.querySelector(".card-body");
-  const createHouseholdForm = document.getElementById("createHouseholdForm");
+  const residentsList = document.getElementById("residentContainer");
+  const createResidentForm = document.getElementById("createResidentForm");
   const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
-  const modalElement = document.getElementById("createHouseholdModal");
+  const modalElement = document.getElementById("createResidentModal");
   const modalInstance = new bootstrap.Modal(modalElement);
 
-  // Fetch and display residents
   fetchResidents();
 
-  // Logout functionality
   logoutBtn.addEventListener("click", (event) => {
     event.preventDefault();
     localStorage.removeItem("token");
     window.location.href = "/login/";
   });
 
-  // Set form method dynamically (POST or PUT)
   function setFormMethod(method) {
-    createHouseholdForm.dataset.method = method;
+    createResidentForm.dataset.method = method;
 
     if (method === "POST") {
-      createHouseholdForm.reset(); // This clears all fields
-      document.getElementById("residentId").value = ""; // Clear the hidden ID field
-      document.getElementById("createHouseholdModalLabel").textContent = "Create Resident"; // Update modal title to "Create"
-      document.getElementById("formErrorMessage").classList.add("d-none"); // Hide any error messages
+      createResidentForm.reset();
+      document.getElementById("residentId").value = "";
+      document.getElementById("createResidentModalLabel").textContent =
+        "Create Resident";
+      document.getElementById("formErrorMessage").classList.add("d-none");
     } else if (method === "PUT") {
-      document.getElementById("createHouseholdModalLabel").textContent = "Edit Resident"; // Update modal title to "Edit"
+      document.getElementById("createResidentModalLabel").textContent =
+        "Edit Resident";
     }
   }
 
-  // Reset the form and modal title when modal is closed
-  modalElement.addEventListener('hidden.bs.modal', () => {
-    setFormMethod("POST"); // Reset to default "POST" (create) mode when modal closes
-    createHouseholdForm.reset(); // Clear form fields
+  modalElement.addEventListener("hidden.bs.modal", () => {
+    setFormMethod("POST");
+    createResidentForm.reset();
   });
 
-  // Handle form submission for create/edit
-  createHouseholdForm.addEventListener("submit", async (event) => {
+  createResidentForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const formData = new FormData(createHouseholdForm);
+    const formData = new FormData(createResidentForm);
     const data = Object.fromEntries(formData.entries());
-    const method = createHouseholdForm.dataset.method || "POST";
-    const url = method === "PUT" ? `/brgy/residents/${data.id}/` : "/brgy/residents/";
+    const method = createResidentForm.dataset.method || "POST";
+    const url =
+      method === "PUT" ? `/brgy/residents/${data.id}/` : "/brgy/residents/";
 
     try {
       const response = await fetch(url, {
@@ -55,10 +53,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (response.ok) {
-        fetchResidents(); // Refresh the list
-        createHouseholdForm.reset(); // Clear the form after successful save
+        fetchResidents();
+        createResidentForm.reset();
         document.getElementById("formErrorMessage").classList.add("d-none");
-        modalInstance.hide(); // Hide the modal on successful submission
+        modalInstance.hide();
       } else {
         const errorMsg = await response.json();
         document.getElementById("formErrorMessage").textContent =
@@ -70,7 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Handle delete confirmation
   confirmDeleteBtn.addEventListener("click", async () => {
     const residentId = confirmDeleteBtn.dataset.residentId;
     try {
@@ -82,8 +79,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (response.ok) {
-        fetchResidents(); // Refresh the list
-        const modal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
+        fetchResidents();
+        const modal = bootstrap.Modal.getInstance(
+          document.getElementById("deleteConfirmationModal")
+        );
         modal.hide();
       } else {
         console.error("Failed to delete resident");
@@ -127,11 +126,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function displayResidents(residents) {
     const table = document.createElement("table");
-    table.classList.add("table", "table-hover");
-
+    table.className = "table table-striped table-hover glass-effect shadow-lg";
     table.innerHTML = `
       <thead>
-          <tr>
+          <tr class="text-center">
               <th>ID</th>
               <th>Name</th>
               <th>Birth Date</th>
@@ -146,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ${residents
             .map(
               (resident) => `
-              <tr>
+              <tr class="text-center">
                   <td>${resident.id}</td>
                   <td>${resident.first_name} ${resident.middle_name} ${resident.last_name}</td>
                   <td>${resident.birth_date}</td>
@@ -155,8 +153,8 @@ document.addEventListener("DOMContentLoaded", () => {
                   <td>${resident.contact_number}</td>
                   <td>${resident.address}</td>
                   <td>
-                    <i class="fas fa-edit edit-icon" data-id="${resident.id}"></i>
-                    <i class="fas fa-trash delete-icon" data-id="${resident.id}"></i>
+                    <i class="fas fa-edit me-2 edit-icon" data-id="${resident.id}" style="color: #28a745;" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Resident"></i>
+                    <i class="fas fa-trash delete-icon" data-id="${resident.id}" style="color: #dc3545;" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Resident"></i>
                   </td>
               </tr>
           `
@@ -168,10 +166,13 @@ document.addEventListener("DOMContentLoaded", () => {
     residentsList.innerHTML = "";
     residentsList.appendChild(table);
 
-    // Add event listeners for edit and delete buttons
     residents.forEach((resident) => {
-      const editIcon = document.querySelector(`.edit-icon[data-id="${resident.id}"]`);
-      const deleteIcon = document.querySelector(`.delete-icon[data-id="${resident.id}"]`);
+      const editIcon = document.querySelector(
+        `.edit-icon[data-id="${resident.id}"]`
+      );
+      const deleteIcon = document.querySelector(
+        `.delete-icon[data-id="${resident.id}"]`
+      );
 
       if (editIcon) {
         editIcon.addEventListener("click", () => {
@@ -184,10 +185,19 @@ document.addEventListener("DOMContentLoaded", () => {
       if (deleteIcon) {
         deleteIcon.addEventListener("click", () => {
           confirmDeleteBtn.dataset.residentId = resident.id;
-          const modal = new bootstrap.Modal(document.getElementById("deleteConfirmationModal"));
+          const modal = new bootstrap.Modal(
+            document.getElementById("deleteConfirmationModal")
+          );
           modal.show();
         });
       }
+    });
+
+    const tooltipTriggerList = [].slice.call(
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
     });
   }
 
