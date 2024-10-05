@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <th>Name</th>
                     <th>Age</th>
                     <th>Address</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,6 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         <td>${resident.name}</td>
                         <td>${resident.age}</td>
                         <td>${resident.address}</td>
+                        <td>
+                        <i class="fas fa-edit me-2"></i>
+                        <i class="fas fa-trash"></i>
+                        </td>
                     </tr>
                 `
                   )
