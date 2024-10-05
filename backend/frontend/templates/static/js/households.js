@@ -205,3 +205,41 @@ document
       .removeAttribute("data-household-id");
     document.getElementById("createHouseholdForm").reset();
   });
+
+const printHouseholdData = () => {
+  const printWindow = window.open("", "_blank");
+  const householdTable = document
+    .querySelector("#householdContainer table")
+    .cloneNode(true);
+
+  const headers = householdTable.querySelectorAll("th");
+  const rows = householdTable.querySelectorAll("tbody tr");
+  headers[headers.length - 1].remove();
+  rows.forEach((row) => row.deleteCell(-1));
+
+  const printContent = `
+    <html>
+      <head>
+        <title>Household Data</title>
+        <style>
+          body { font-family: Arial, sans-serif; }
+          table { border-collapse: collapse; width: 100%; }
+          th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+          th { background-color: #f2f2f2; }
+        </style>
+      </head>
+      <body>
+        <h3>Household Table</h3>
+        ${householdTable.outerHTML}
+      </body>
+    </html>
+  `;
+
+  printWindow.document.write(printContent);
+  printWindow.document.close();
+  printWindow.print();
+};
+
+document
+  .getElementById("printRecordBtn")
+  .addEventListener("click", printHouseholdData);

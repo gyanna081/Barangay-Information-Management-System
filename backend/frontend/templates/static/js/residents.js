@@ -212,4 +212,43 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("contactNumber").value = resident.contact_number;
     document.getElementById("address").value = resident.address;
   }
+
+  function printResidentsData() {
+    const printWindow = window.open("", "_blank");
+    const table = document
+      .querySelector("#residentContainer table")
+      .cloneNode(true);
+
+    const headers = table.querySelectorAll("th");
+    const rows = table.querySelectorAll("tbody tr");
+    headers[headers.length - 1].remove();
+    rows.forEach((row) => row.deleteCell(-1));
+
+    const printContent = `
+      <html>
+        <head>
+          <title>Residents Data</title>
+          <style>
+            body { font-family: Arial, sans-serif; }
+            table { border-collapse: collapse; width: 100%; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f2f2f2; }
+          </style>
+        </head>
+        <body>
+          <h3>Residents Table</h3>
+          ${table.outerHTML}
+        </body>
+      </html>
+    `;
+
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+    printWindow.print();
+  }
+
+  const printBtn = document.getElementById("printRecordBtn");
+  if (printBtn) {
+    printBtn.addEventListener("click", printResidentsData);
+  }
 });
