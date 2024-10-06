@@ -98,9 +98,6 @@ header {
 .sidebar .nav-link {
   font-weight: 500;
   color: #ffffff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .sidebar-collapsed .menu-text {
@@ -119,7 +116,21 @@ header {
 @media (max-width: 767.98px) {
   .sidebar {
     top: 0;
-    padding-top: 0;
+    padding: 48px 0 0;
+  }
+
+  .user-info {
+    font-size: 0.9rem;
+  }
+
+  .user-info .fa-2x {
+    font-size: 2em;
+    margin-right: 10px;
+    align-items: center;
+  }
+
+  .user-info p {
+    max-width: 100%;
   }
 }
 
