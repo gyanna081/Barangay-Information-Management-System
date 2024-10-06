@@ -33,6 +33,7 @@
                   id="firstName"
                   name="first_name"
                   required
+                  autocomplete="given-name"
                 />
               </div>
             </div>
@@ -44,6 +45,7 @@
                   class="form-control"
                   id="middleName"
                   name="middle_name"
+                  autocomplete="additional-name"
                 />
               </div>
             </div>
@@ -56,6 +58,7 @@
                   id="lastName"
                   name="last_name"
                   required
+                  autocomplete="family-name"
                 />
               </div>
             </div>
@@ -71,16 +74,24 @@
                   id="birthDate"
                   name="birth_date"
                   required
+                  autocomplete="bday"
                 />
               </div>
             </div>
             <div class="col-md-4">
               <div class="mb-3">
                 <label for="gender" class="form-label">Gender</label>
-                <select class="form-control" id="gender" name="gender" required>
+                <select
+                  class="form-select"
+                  id="gender"
+                  name="gender"
+                  required
+                  autocomplete="sex"
+                >
                   <option value="" disabled selected>Select gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
             </div>
@@ -88,10 +99,11 @@
               <div class="mb-3">
                 <label for="civilStatus" class="form-label">Civil Status</label>
                 <select
-                  class="form-control"
+                  class="form-select"
                   id="civilStatus"
                   name="civil_status"
                   required
+                  autocomplete="off"
                 >
                   <option value="" disabled selected>
                     Select civil status
@@ -117,6 +129,7 @@
                   id="contactNumber"
                   name="contact_number"
                   required
+                  autocomplete="tel"
                 />
               </div>
             </div>
@@ -129,6 +142,7 @@
                   id="address"
                   name="address"
                   required
+                  autocomplete="street-address"
                 />
               </div>
             </div>
