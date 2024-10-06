@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const fetchPersonnel = async () => {
     try {
-      const response = await fetch("/brgy/personnel/");
+      const response = await fetch("/brgy/users/");
       if (!response.ok) {
         throw new Error("Failed to fetch personnel");
       }
@@ -29,8 +29,12 @@ document.addEventListener("DOMContentLoaded", () => {
         <tr class="text-center">
           <th>ID</th>
           <th>Name</th>
+          <th>Email</th>
           <th>Position</th>
-          <th>Contact Number</th>
+          <th>Birth Date</th>
+          <th>Gender</th>
+          <th>Username</th>
+          <th>Address</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -40,9 +44,15 @@ document.addEventListener("DOMContentLoaded", () => {
             (person) => `
           <tr class="text-center">
             <td>${person.id}</td>
-            <td>${person.name}</td>
-            <td>${person.position}</td>
-            <td>${person.contact_number}</td>
+            <td>${person.first_name} ${person.middle_name || ""} ${
+              person.last_name
+            }</td>
+            <td>${person.email}</td>
+            <td>${person.position || "-"}</td>
+            <td>${person.birth_date}</td>
+            <td>${person.gender}</td>
+            <td>${person.username}</td>
+            <td>${person.address || "-"}</td>
             <td>
               <i class="fas fa-edit me-2 edit-personnel" data-personnel='${JSON.stringify(
                 person
@@ -61,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     personnelContainer.innerHTML = "";
     personnelContainer.appendChild(table);
 
+    // Attach event listeners for edit and delete icons
     document.querySelectorAll(".edit-personnel").forEach((icon) => {
       icon.addEventListener("click", handleEditClick);
     });
@@ -69,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
       icon.addEventListener("click", handleDeleteClick);
     });
 
+    // Initialize Bootstrap tooltips
     const tooltipTriggerList = [].slice.call(
       document.querySelectorAll('[data-bs-toggle="tooltip"]')
     );
@@ -80,16 +92,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const handleEditClick = (event) => {
     const person = JSON.parse(event.target.getAttribute("data-personnel"));
 
-    document.getElementById("name").value = person.name;
+    // Populate form fields with the person's data
+    document.getElementById("first_name").value = person.first_name;
+    document.getElementById("middle_name").value = person.middle_name;
+    document.getElementById("last_name").value = person.last_name;
+    document.getElementById("email").value = person.email;
+    document.getElementById("birthDate").value = person.birth_date;
+    document.getElementById("gender").value = person.gender;
+    document.getElementById("address").value = person.address;
     document.getElementById("position").value = person.position;
-    document.getElementById("contactNumber").value = person.contact_number;
+    document.getElementById("username").value = person.username;
+    document.getElementById("password").value = person.password;
+    document.getElementById("password").disabled = true;
 
+    // Change modal title and button text for editing
     document.getElementById("createPersonnelModalLabel").textContent =
       "Edit Personnel";
     document.querySelector(
       '#createPersonnelForm button[type="submit"]'
     ).textContent = "Update";
 
+    // Store the personnel ID for editing
     document
       .getElementById("createPersonnelForm")
       .setAttribute("data-personnel-id", person.id);
@@ -113,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const deletePersonnel = async (personnelId) => {
     try {
-      const response = await fetch(`/brgy/personnel/${personnelId}/`, {
+      const response = await fetch(`/brgy/users/${personnelId}/`, {
         method: "DELETE",
       });
 
@@ -143,18 +166,26 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchPersonnel().then(renderPersonnel);
 });
 
+// Handle form submission for creating/updating personnel
 document
   .getElementById("createPersonnelForm")
   .addEventListener("submit", async (event) => {
     event.preventDefault();
-    const name = document.getElementById("name").value;
+    const first_name = document.getElementById("first_name").value;
+    const middle_name = document.getElementById("middle_name").value;
+    const last_name = document.getElementById("last_name").value;
+    const email = document.getElementById("email").value;
+    const birthDate = document.getElementById("birthDate").value;
+    const gender = document.getElementById("gender").value;
+    const address = document.getElementById("address").value;
     const position = document.getElementById("position").value;
-    const contactNumber = document.getElementById("contactNumber").value;
     const personnelId = event.target.getAttribute("data-personnel-id");
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
     const url = personnelId
-      ? `/brgy/personnel/${personnelId}/`
-      : "/brgy/personnel/";
+      ? `/brgy/users/${personnelId}/`
+      : "/brgy/users/";
     const method = personnelId ? "PUT" : "POST";
 
     try {
@@ -164,9 +195,16 @@ document
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: name,
+          first_name: first_name,
+          middle_name: middle_name,
+          last_name: last_name,
+          email: email,
+          username: username,
+          password: password,
+          birth_date: birthDate,
+          gender: gender,
+          address: address,
           position: position,
-          contact_number: contactNumber,
         }),
       });
 
@@ -190,6 +228,7 @@ document
     }
   });
 
+// Reset modal form when hidden
 document
   .getElementById("createPersonnelModal")
   .addEventListener("hidden.bs.modal", (event) => {
@@ -210,10 +249,8 @@ const printPersonnelData = () => {
     .querySelector("#personnelContainer table")
     .cloneNode(true);
 
-  const headers = personnelTable.querySelectorAll("th");
-  const rows = personnelTable.querySelectorAll("tbody tr");
-  headers[headers.length - 1].remove();
-  rows.forEach((row) => row.deleteCell(-1));
+  // Remove the last column (Actions) for print view
+  personnelTable.querySelectorAll("thead th:last-child, tbody td:last-child").forEach(el => el.remove());
 
   const printContent = `
     <html>
