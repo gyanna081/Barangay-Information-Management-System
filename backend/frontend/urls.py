@@ -5,8 +5,8 @@ from . import views
 app_name = 'frontend'
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('login/', auth_views.LoginView.as_view(template_name='frontend/pages/login.html'), name='login'),
+    # path('', views.index, name='index'),
+    path('', auth_views.LoginView.as_view(template_name='frontend/pages/login.html'), name='login'),
     path('register/', views.register, name='register'),
     path('residents/', views.residents, name='residents'),
     path('households/', views.households, name='households'),
