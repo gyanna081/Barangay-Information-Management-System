@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <th>Civil Status</th>
               <th>Contact Number</th>
               <th>Address</th>
-              <th>Actions</th>
+              <th> ${userType == "Brgy. Admin" ? "Actions" : ""}</th>
           </tr>
       </thead>
       <tbody>
@@ -146,15 +146,23 @@ document.addEventListener("DOMContentLoaded", () => {
               (resident) => `
               <tr class="text-center">
                   <td>${resident.id}</td>
-                  <td>${resident.first_name} ${resident.middle_name} ${resident.last_name}</td>
+                  <td>${resident.first_name} ${resident.middle_name} ${
+                resident.last_name
+              }</td>
                   <td>${resident.birth_date}</td>
                   <td>${resident.gender}</td>
                   <td>${resident.civil_status}</td>
                   <td>${resident.contact_number}</td>
                   <td>${resident.address}</td>
                   <td>
-                    <i class="fas fa-edit me-2 edit-icon" data-id="${resident.id}" style="color: #28a745;" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Resident"></i>
-                    <i class="fas fa-trash delete-icon" data-id="${resident.id}" style="color: #dc3545;" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Resident"></i>
+                    ${
+                      userType == "Brgy. Admin"
+                        ? `
+                      <i class="fas fa-edit me-2 edit-icon" data-id="${resident.id}" style="color: #28a745;" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Resident"></i>
+                      <i class="fas fa-trash delete-icon" data-id="${resident.id}" style="color: #dc3545;" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Resident"></i>
+                    `
+                        : ""
+                    }
                   </td>
               </tr>
           `
@@ -166,32 +174,34 @@ document.addEventListener("DOMContentLoaded", () => {
     residentsList.innerHTML = "";
     residentsList.appendChild(table);
 
-    residents.forEach((resident) => {
-      const editIcon = document.querySelector(
-        `.edit-icon[data-id="${resident.id}"]`
-      );
-      const deleteIcon = document.querySelector(
-        `.delete-icon[data-id="${resident.id}"]`
-      );
+    if (userType == "Brgy. Admin") {
+      residents.forEach((resident) => {
+        const editIcon = document.querySelector(
+          `.edit-icon[data-id="${resident.id}"]`
+        );
+        const deleteIcon = document.querySelector(
+          `.delete-icon[data-id="${resident.id}"]`
+        );
 
-      if (editIcon) {
-        editIcon.addEventListener("click", () => {
-          setFormMethod("PUT");
-          populateForm(resident);
-          modalInstance.show();
-        });
-      }
+        if (editIcon) {
+          editIcon.addEventListener("click", () => {
+            setFormMethod("PUT");
+            populateForm(resident);
+            modalInstance.show();
+          });
+        }
 
-      if (deleteIcon) {
-        deleteIcon.addEventListener("click", () => {
-          confirmDeleteBtn.dataset.residentId = resident.id;
-          const modal = new bootstrap.Modal(
-            document.getElementById("deleteConfirmationModal")
-          );
-          modal.show();
-        });
-      }
-    });
+        if (deleteIcon) {
+          deleteIcon.addEventListener("click", () => {
+            confirmDeleteBtn.dataset.residentId = resident.id;
+            const modal = new bootstrap.Modal(
+              document.getElementById("deleteConfirmationModal")
+            );
+            modal.show();
+          });
+        }
+      });
+    }
 
     const tooltipTriggerList = [].slice.call(
       document.querySelectorAll('[data-bs-toggle="tooltip"]')

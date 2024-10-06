@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <th>Household ID</th>
           <th>Address</th>
           <th>Number of Members</th>
-          <th>Actions</th>
+          <th> ${userType == "Brgy. Admin" ? "Actions" : ""}</th>
         </tr>
       </thead>
       <tbody>
@@ -44,12 +44,18 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>${household.household_head}</td>
             <td>${household.number_of_members}</td>
             <td>
-              <i class="fas fa-edit me-2 edit-household" data-household='${JSON.stringify(
-                household
-              )}' style="color: #28a745;" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Household"></i>
-              <i class="fas fa-trash delete-household" data-household-id="${
-                household.id
-              }" style="color: #dc3545;" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Household"></i>
+              ${
+                userType == "Brgy. Admin"
+                  ? `
+                <i class="fas fa-edit me-2 edit-household" data-household='${JSON.stringify(
+                  household
+                )}' style="color: #28a745;" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Household"></i>
+                <i class="fas fa-trash delete-household" data-household-id="${
+                  household.id
+                }" style="color: #dc3545;" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Household"></i>
+              `
+                  : ""
+              }
             </td>
           </tr>
         `
@@ -61,13 +67,15 @@ document.addEventListener("DOMContentLoaded", () => {
     householdContainer.innerHTML = "";
     householdContainer.appendChild(table);
 
-    document.querySelectorAll(".edit-household").forEach((icon) => {
-      icon.addEventListener("click", handleEditClick);
-    });
+    if (userType == "Brgy. Admin") {
+      document.querySelectorAll(".edit-household").forEach((icon) => {
+        icon.addEventListener("click", handleEditClick);
+      });
 
-    document.querySelectorAll(".delete-household").forEach((icon) => {
-      icon.addEventListener("click", handleDeleteClick);
-    });
+      document.querySelectorAll(".delete-household").forEach((icon) => {
+        icon.addEventListener("click", handleDeleteClick);
+      });
+    }
 
     const tooltipTriggerList = [].slice.call(
       document.querySelectorAll('[data-bs-toggle="tooltip"]')
